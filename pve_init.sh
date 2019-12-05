@@ -12,9 +12,9 @@ sed -i '24a HandleLidSwitch=ignore' /etc/systemd/logind.conf
 sed -i '$a blacklist pcspkr' /etc/modprobe.d/pve-blacklist.conf
 
 # sync time
-cp /etc/systemd/timesyncd.conf /etc/systemd/timesyncd.conf_bak
-sed -i '$a NTP=192.168.18.200' /etc/systemd/timesyncd.conf
-/bin/systemctl restart systemd-timesyncd.service
+# cp /etc/systemd/timesyncd.conf /etc/systemd/timesyncd.conf_bak
+# sed -i '$a NTP=192.168.18.200' /etc/systemd/timesyncd.conf
+# /bin/systemctl restart systemd-timesyncd.service
 
 sed -i '1s/^/#\ /' /etc/apt/sources.list.d/pve-enterprise.list
 mv /etc/apt/sources.list /etc/apt/sources.list.bak

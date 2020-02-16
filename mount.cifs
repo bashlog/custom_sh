@@ -1,0 +1,1 @@
+mount.cifs [Source] [Destination] -o {username=USERNAME,vers=3.0,uid=UserID,gid=GroupID}

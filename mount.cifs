@@ -1,1 +1,3 @@
+# The UserID and GroupID from use command "id USERNAME" to get it. 
+
 mount.cifs [Source] [Destination] -o {username=USERNAME,vers=3.0,uid=UserID,gid=GroupID}

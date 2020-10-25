@@ -1,0 +1,13 @@
+[Unit]
+Description=Python program hosting process
+After=network.target 
+
+[Service]
+Type=forking
+PIDFile=/opt/supervisord/supervisord.pid
+ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf -u chrism
+ExecReload=/usr/bin/supervisorctl reread 
+ExecStop=/usr/bin/supervisorctl shutdown
+
+[Install]
+WantedBy=multi-user.target

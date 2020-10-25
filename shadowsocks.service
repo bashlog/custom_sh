@@ -1,0 +1,15 @@
+[Unit]
+Description=The ss (shadowsocks) proxy server
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/run/shadowsocks.pid
+ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json --pid-file /run/shadowsocks.pid --log-file /var/log/shadowsocks.log -d start 
+ExecStop=/usr/bin/ssserver -d stop 
+ExecReload=/usr/bin/ssserver -c /etc/shadowsocks.json --pid-file /run/shadowsocks.pid --log-file /var/log/shadowsocks.log -d restart
+
+[Install]
+WantedBy=multi-user.target
+
+

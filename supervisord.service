@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=forking
-PIDFile=/opt/supervisord/supervisord.pid
-ExecStart=/usr/bin/supervisord -c /etc/supervisord.conf -u chrism
+PIDFile=/opt/supervisor/supervisord.pid
+ExecStart=/usr/bin/supervisord -c /opt/supervisor/supervisord.conf
 ExecReload=/usr/bin/supervisorctl reread 
 ExecStop=/usr/bin/supervisorctl shutdown
 

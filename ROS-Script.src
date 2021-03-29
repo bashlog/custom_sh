@@ -1,0 +1,27 @@
+# /ip address remove numbers=0
+/interface list
+add comment=defconf name=WAN
+add comment=defconf name=LAN
+/interface list member
+add interface=ether2 list=LAN
+add interface=ether1 list=WAN
+/interface pppoe-client add disabled=yes interface=ether1 user=账号 password=密码 add-default-route=yes use-peer-dns=yes name=pppoe-out1
+/interface list member add interface=pppoe-out1 list=WAN
+# /ip address add address=192.168.18.2/24 interface=ether2
+/ip dns set allow-remote-requests=yes
+/tool mac-server set allowed-interface-list=LAN
+/tool mac-server mac-winbox set allowed-interface-list=LAN
+/ip neighbor discovery-settings set discover-interface-list=LAN
+/ip service disable telnet,ftp,api,winbox,api-ssl,ssh
+/ip service set www address=192.168.18.0/24
+/tool bandwidth-server set enabled=no
+/ip firewall filter
+add chain=input protocol=icmp action=accept comment="allow ICMP" 
+add chain=input connection-state=established,related action=accept comment="accept established,related" 
+add chain=input connection-state=invalid action=drop 
+add chain=input in-interface-list=WAN action=drop comment="block everything else" 
+add chain=forward action=fasttrack-connection connection-state=established,related comment="fast-track for established,related" 
+add chain=forward action=accept connection-state=established,related comment="accept established,related" 
+add chain=forward action=drop connection-state=invalid
+add chain=forward action=drop connection-state=new connection-nat-state=!dstnat in-interface-list=WAN comment="drop access to clients behind NAT form WAN"
+/ip firewall nat add chain=srcnat action=masquerade out-interface-list=WAN 
